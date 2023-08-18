@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wojia.springboot.boot2.mapper.EmpMapper">
+<select id="shwo" parameterType="com.wojia.springboot.boot2.pojo.Emp" resultType="com.wojia.springboot.boot2.pojo.Emp">
+    select * from emp
+</select>
+
+    <select id="showw" parameterType="int" resultType="com.wojia.springboot.boot2.pojo.Emp">
+        select * from emp where id =#{id}
+    </select>
+    <select id="show" parameterType="String" resultType="com.wojia.springboot.boot2.pojo.Emp">
+        select * from emp
+        <where>
+            <if test="username!=null and username!=''">and username like concat ("%",#{username},"%")</if>
+        </where>
+    </select>
+</mapper>

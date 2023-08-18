@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{bootstrap/css/bootstrap/3.3.6/bootstrap.css}">
+</head>
+<body>
+<a th:href="@{toadd}">添加</a>
+
+<form action="shwo" method="get" th:id="m1">
+    <input type="hidden" th:id="pageNum" th:name="pageNum">
+    <input type="text" name="username">
+    <input type="submit" value="查询">
+</form>
+
+<table class="table table-hover">
+    <tr>
+        <th>编号</th>
+        <th>姓名</th>
+        <th>密码</th>
+        <th>地址</th>
+        <th>图片</th>
+        <th>操作</th>
+    </tr>
+    <tr th:each="u:${page.list}">
+        <td th:text="${u.id}"></td>
+           <td th:text="${u.username}"></td>
+                <td th:text="${u.password}"></td>
+                <td th:text="${u.address}"></td>
+        <td >
+            <img th:src="@{'/img/'+${u.img}}" width="200px" height="200px">
+        </td>
+<!--                <td th:text="${u.img}"></td>-->
+<!--        <td>-->
+<!--        <img src="/img/th:text="width="200px" height="200px">-->
+<!--    </td>-->
+
+<!--            <img src=""width="200px" height="200px">-->
+<!--        </td>-->
+        <td><a th:href="@{todelete(id=${u.id})}">删除</a>
+        <a th:href="@{toupdate(id=${u.id})}">修改</a>
+        </td>
+    </tr>
+</table>
+<p class="pager">
+
+    <a th:href="@{/shwo(pageNum=${page.getNavigateFirstPage()})}">首页</a>
+    <a th:href="@{/shwo(pageNum=${page.getPrePage()})}">上一页</a>
+    <a th:href="@{/shwo(pageNum=${page.getNextPage()})}">下一页</a>
+    <a th:href="@{/shwo(pageNum=${page.getNavigateLastPage()})}">尾页</a>
+    第:<span th:text="${page.pageNum}"></span>页
+    共:<span th:text="${page.pages}"></span>页
+    共:<span th:text="${page.total}"></span>条数据
+</p>
+</body>
+<!--<script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/jquery/2.0.0/jquery.min.js"></script>-->
+<script type="text/javascript" src="/bootstrap/js/jquery/2.0.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+    function go(id) {
+        $("#pageNum").val(id);
+        $("#m1").submit();
+    }
+
+</script>
+</html>
